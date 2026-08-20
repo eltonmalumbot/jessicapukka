@@ -6,10 +6,6 @@ Corporate website and machine catalogue for **Harmony e-Solution**, an industria
 
 The website presents Harmony as an independent global brand while directing Indonesian visitors to local representation, installation, training, technical support, and after-sales service from **Pukka Indonusa**.
 
-## Live Website
-
-[View the current Harmony website](https://harmony-machines.elton-kalangi.chatgpt.site)
-
 ## Main Features
 
 - Premium industrial homepage
@@ -43,8 +39,7 @@ The website presents Harmony as an independent global brand while directing Indo
 - React 19
 - TypeScript
 - Tailwind CSS 4
-- Vercel deployment configuration
-- Vinext compatibility for ChatGPT Sites
+- Vercel
 
 ## Getting Started
 
@@ -61,40 +56,26 @@ cd jessicapukka
 npm install
 ```
 
-### Run Locally with Next.js
+### Development
 
 ```bash
-npx next dev
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Production Build for Vercel
+### Production Build
 
 ```bash
-npm run build:vercel
+npm run build
+npm run start
 ```
 
-The repository includes `vercel.json`, which instructs Vercel to run the Next.js build and generate the required `.next` output directory.
+## Deployment on Vercel
 
-## Deployment
-
-### Vercel
-
-Connect this GitHub repository to Vercel and use the repository root as the project directory. Vercel reads the included configuration automatically:
-
-```json
-{
-  "framework": "nextjs",
-  "buildCommand": "npm run build:vercel"
-}
-```
+Connect this repository to Vercel and use the repository root as the project directory. The included `vercel.json` identifies the project as Next.js and uses the standard production build.
 
 Every push to `main` triggers a new production deployment when Git integration is enabled.
-
-### ChatGPT Sites
-
-The project retains its Vinext-compatible build path for the current ChatGPT Sites deployment. The two build targets are kept separate so the Vercel build continues to produce `.next`.
 
 ## Project Structure
 
@@ -103,7 +84,7 @@ app/                 Next.js routes, layout, metadata, sitemap, and styles
 components/          Shared header, footer, and machine card components
 data/machines.ts     Structured machine catalogue data
 public/              Social preview and public assets
-vercel.json          Vercel build configuration
+vercel.json          Vercel project configuration
 next.config.ts       Next.js configuration
 ```
 
