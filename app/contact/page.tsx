@@ -1,0 +1,7 @@
+import type { Metadata } from "next";
+export const metadata: Metadata = { title: "Contact", description: "Contact Harmony globally or Pukka Indonusa for local machine inquiries and support." };
+export default function ContactPage() {
+  return <main><section className="contact-hero"><div className="site-container contact-grid"><div><p className="eyebrow light">Contact</p><h1>Let&apos;s talk about<br />your production.</h1><p>Tell us what you manufacture and the workflow you want to improve. We&apos;ll help identify the right next conversation.</p></div><div className="contact-panel"><p className="eyebrow">Indonesia</p><h2>Talk to Pukka Indonusa</h2><p>Official local representation, installation, training, technical support, and after-sales service.</p><a className="button primary" href="mailto:mail@pukkaindonusa.com">mail@pukkaindonusa.com <span>↗</span></a><a href="tel:+622122550100">+62 21 2255 0100</a><span>Ruko Osaka PIK 2, Tangerang, Banten</span></div></div></section>
+    <section className="section site-container contact-options"><div><p className="eyebrow">Other markets</p><h2>Talk to Harmony</h2><p>For global machine inquiries, distribution, and partnership opportunities.</p></div><div className="contact-fields"><span>Name</span><span>Company</span><span>Country</span><span>Machine of interest</span><span className="wide">Message</span><button type="button">Inquiry form coming soon</button></div></section>
+  </main>;
+}
