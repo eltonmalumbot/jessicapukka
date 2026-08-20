@@ -1,107 +1,128 @@
-# vinext-starter
+# Harmony e-Solution Website
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+![Harmony e-Solution — Precision in Every Cut](public/og.png)
 
-## Prerequisites
+Corporate website and machine catalogue for **Harmony e-Solution**, an industrial machinery brand focused on fabric spreading, automatic cutting, single-layer cutting, and supporting cutting-room equipment.
 
-- Node.js `>=22.13.0`
-- Linux with `flock`, `curl`, and GNU `timeout`
+The website presents Harmony as an independent global brand while directing Indonesian visitors to local representation, installation, training, technical support, and after-sales service from **Pukka Indonusa**.
 
-## Sites Lifecycle
+## Live Website
 
-The Sites lifecycle CLI runs the locked dependency install before returning this checkout. Edit the source under `app/`, then checkpoint when a coherent milestone is ready to inspect or share. The remote Sites builder runs `npm run build` against the pushed commit. Do not repeat install or build as a normal pre-checkpoint step.
+[View the current Harmony website](https://harmony-machines.elton-kalangi.chatgpt.site)
 
-This starter does not use `wrangler.jsonc`.
+## Main Features
 
-`install:ci` is intentionally a single, non-retrying `npm ci`. It refuses a concurrent install for the same project, consumes a matching image-seeded npm cache with `--prefer-offline` while retaining registry fallback for a missing cache object, otherwise downloads and verifies the complete vinext tarball recorded in `package-lock.json`, limits npm to one socket, and terminates a stalled install. `build` applies a short timeout. These helpers target Linux and use GNU `timeout`; they are not native macOS scripts.
+- Premium industrial homepage
+- Machine category overview
+- Individual machine detail pages
+- Industry and application pages
+- About Harmony and company timeline
+- Global presence section
+- Dedicated Indonesia contact path through Pukka Indonusa
+- Responsive desktop, tablet, and mobile layouts
+- Open Graph social preview
+- SEO metadata, sitemap, and robots configuration
+- Static generation for machine detail pages
 
-Scripts that need writable project-scoped home, npm, XDG, and temporary paths use `scripts/sites-env.sh`. The `dev` and `start` scripts honor the caller's runtime environment and keep Wrangler logs inside the checkout. The generated `.sites-runtime/` directory is disposable and ignored by Git.
+## Pages
 
-## Included Shape
+| Route | Description |
+| --- | --- |
+| `/` | Company introduction, machine portfolio, industries, global presence, and Indonesia support |
+| `/machines` | Machine catalogue and category overview |
+| `/machines/[slug]` | Individual machine information, features, and technical profile |
+| `/industries` | Applications for garment, bags, footwear, upholstery, and automotive production |
+| `/about` | Harmony profile, expertise, and company timeline |
+| `/contact` | Global inquiry path and Indonesian support through Pukka Indonusa |
+| `/sitemap.xml` | Search-engine sitemap |
+| `/robots.txt` | Search-engine crawling rules |
 
-- edit site code under `app/`
-- `app/chatgpt-auth.ts` provides optional dispatch-owned ChatGPT sign-in helpers
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/index.ts` reads the D1 binding from the Cloudflare Worker environment
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+## Technology
 
-## Workspace Auth Headers
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Vercel deployment configuration
+- Vinext compatibility for ChatGPT Sites
 
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
+## Getting Started
 
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
+### Requirements
 
-Treat the full name as optional and fall back to email when it is absent:
+- Node.js 22
+- npm
 
-```tsx
-import { headers } from "next/headers";
+### Installation
 
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
+```bash
+git clone https://github.com/eltonmalumbot/jessicapukka.git
+cd jessicapukka
+npm install
+```
 
-  const displayName = fullName ?? email;
-  // ...
+### Run Locally with Next.js
+
+```bash
+npx next dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Production Build for Vercel
+
+```bash
+npm run build:vercel
+```
+
+The repository includes `vercel.json`, which instructs Vercel to run the Next.js build and generate the required `.next` output directory.
+
+## Deployment
+
+### Vercel
+
+Connect this GitHub repository to Vercel and use the repository root as the project directory. Vercel reads the included configuration automatically:
+
+```json
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build:vercel"
 }
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+Every push to `main` triggers a new production deployment when Git integration is enabled.
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+### ChatGPT Sites
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+The project retains its Vinext-compatible build path for the current ChatGPT Sites deployment. The two build targets are kept separate so the Vercel build continues to produce `.next`.
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+## Project Structure
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
+```text
+app/                 Next.js routes, layout, metadata, sitemap, and styles
+components/          Shared header, footer, and machine card components
+data/machines.ts     Structured machine catalogue data
+public/              Social preview and public assets
+vercel.json          Vercel build configuration
+next.config.ts       Next.js configuration
+```
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
+## Content Status
 
-## Diagnostic Commands
+The current machine names, images, descriptions, and technical profiles are **representative prototype content**. They must be replaced or verified against the official Harmony product catalogue before the website is treated as the final corporate source.
 
-- `npm run install:ci`: perform the one bounded lockfile install
-- `npm run dev`: start the Vite/Vinext development server
-- `npm run build`: build the deployable Sites artifact
-- `npm run start`: start the built Vinext application
-- `npm test`: build and verify the rendered development-preview metadata
-- `npm run db:generate`: generate Drizzle migrations after schema changes
+The following company information should also receive final stakeholder approval:
 
-Use build commands for targeted diagnosis after a remote failure, not as part of the normal checkpoint path.
+- `33+` years of accumulated industry experience
+- `200+` machines installed
+- `5+` countries with Harmony systems
+- Countries listed under Global Presence
+- Official Harmony and Pukka contact details
 
-The timeout defaults can be overridden for a controlled canary with `SITES_INSTALL_TIMEOUT`, `SITES_INSTALL_KILL_AFTER`, `SITES_BUILD_TIMEOUT`, and `SITES_BUILD_KILL_AFTER`. A timeout fails the command; the helpers never retry an unchanged install or build.
+## Indonesia Representation
 
-## Learn More
+Harmony machines are presented as represented, installed, and supported in Indonesia by **Pukka Indonusa**. Indonesian inquiries are directed to the local contact path on the website.
 
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+## Repository
+
+Maintained at [eltonmalumbot/jessicapukka](https://github.com/eltonmalumbot/jessicapukka).
